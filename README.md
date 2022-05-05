@@ -29,6 +29,8 @@ from sklearn.preprocessing import LabelEncoder
 
 from sklearn.preprocessing import StandardScaler
 
+
+
 df = pd.read_csv('./Perth Data.csv')
 
 #interpolation
