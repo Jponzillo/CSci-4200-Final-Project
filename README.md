@@ -97,6 +97,23 @@ df['PRICE_MIN']=df.groupby('BATHROOMS')['PRICE'].transform('min')
 
 df['PRICE_RANGE']=df['PRICE_MAX']-df['PRICE_MIN']
 
+#To help visualize what we're working with I'm including links of the plots. The Bathroom variable was chosen for the transofrmation because 
+sns.lineplot( data= df, x= 'BATHROOMS', y= 'PRICE_MEDIAN')
+
+![python price bathrooms](https://user-images.githubusercontent.com/104104103/166962165-ed63ab32-be42-4d19-afe8-1189d397689d.png)
+
+sns.lineplot( data= df, x= 'BATHROOMS', y= 'PRICE_STDEV')
+
+![python price stdev](https://user-images.githubusercontent.com/104104103/166966874-cef50eec-f687-47a9-90a6-61e2916f1a00.png)
+
+#For this plot, since houses with more than 6 bathrooms are extreme outliers ( sic; there are only 1) their stdev is zero, but as we can see that the deviation in house prices by bathroom isn't too high
+
+sns.lineplot( data= df, x= 'BATHROOMS', y= 'PRICE_RANGE')
+
+![Price Range Python](https://user-images.githubusercontent.com/104104103/166968407-41bfefaa-2f8b-4f15-8054-d88a36bd4d90.png)
+
+We can see a fairly large range of prices in this data, though the sharp decline at 7 bathroom houses come down to the fact that there are only single digit houses ( and by the method we used to calculate price ranges would default to a price range of zero)
+
 df=df.drop(columns = ['PRICE_MAX', 'PRICE_MIN', 'ADDRESS'])
 
 num=.9*len(df)
@@ -235,6 +252,7 @@ n_reg.fit(x_train,y_train)
 
 #There is not a signfiicant difference between sample sizes and accuracy of linear models. Suggesting that multicollinearity may be a problem.
 
+![python regression score](https://user-images.githubusercontent.com/104104103/166973928-022c70fc-e35a-4664-af7d-7ab23434fc28.png)
 
 
 
@@ -244,7 +262,7 @@ sns.lineplot(y_test,y_predict)
 
 ![SGD Regression](https://user-images.githubusercontent.com/104104103/166870819-28581e29-6ed3-4cec-b0bf-86ca0da1f53d.png)
 
-#In The case of Using MinMaxScaler we still see wildly disproportionate regression, suggesting a severe systematic 
+#In The case of Using MinMaxScaler we see deviations from the model on the order of several orders of magnitude. 
 
 ![SGD Regression 2](https://user-images.githubusercontent.com/104104103/166871255-c44dd618-ff9c-41d9-aad9-37827a6d3c7e.png)
 
@@ -255,7 +273,7 @@ sns.lineplot(y_test,y_predict)
 
 #suggested that the ideal ratio should be a rough linear pattern with a slope of about 1 with some variance. This Ratio in this model borders on 10^17. 
 
-
+#By Contrast, this linear plot appears to showcase other, albeit less glaring systematic errors. The plot underestimates higher price values. However, high priced houses are less frequent than low priced houses. 
 
 #y_predict= reg.predict(x_test)
 
